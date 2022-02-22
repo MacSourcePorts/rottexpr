@@ -158,25 +158,37 @@ int main (int argc, char *argv[])
     _argc = argc;
     _argv = argv;
 
-#if defined(PLATFORM_MACOSX)
+    // setting PLATFORM_MACOSX to defined causes issues in platform.h,
+    // so I'm just hardwiring this for now and using logic to find
+    // ~/Library/Application Support/
+    // -tkidd
+
+// #if defined(PLATFORM_MACOSX)
     {
         /* OS X will give us a path in the form '/Applications/Rise of the Triad.app/Contents/MacOS/Rise of the Triad'.
            Our data is in Contents/Resources. */
         char *path;
-        const char suffix[] = "/Resources/";
-        int end;
-        path = (char *)malloc(strlen(argv[0]) + strlen(suffix) + 1);
-        if (path == NULL) return 1;
-        strcpy(path, argv[0]);
-        /* Back up two '/'s. */
-        for (end = strlen(path)-1; end >= 0 && path[end] != '/'; end--);
-        if (end >= 0) for (--end; end >= 0 && path[end] != '/'; end--);
-        strcpy(&path[end], suffix);
-        printf("Changing to working directory: %s\n", path);
+        // const char suffix[] = "/Resources/";
+        // int end;
+        // path = (char *)malloc(strlen(argv[0]) + strlen(suffix) + 1);
+        // if (path == NULL) return 1;
+        // strcpy(path, argv[0]);
+        // /* Back up two '/'s. */
+        // for (end = strlen(path)-1; end >= 0 && path[end] != '/'; end--);
+        // if (end >= 0) for (--end; end >= 0 && path[end] != '/'; end--);
+        // strcpy(&path[end], suffix);
+
+        const char * prefix = getenv("HOME");
+        const char suffix[] = "/Library/Application Support/rott/";
+        path = (char *)malloc(strlen(prefix) + strlen(suffix) + 1);
+        strcpy(path, prefix);
+        strcpy(&path[strlen(prefix)], suffix);
+
+        printf("Changing to working directory: \"%s\"\n", path);
         chdir(path);
         free(path);
     }
-#endif
+// #endif
 
     signal (11, crash_print);
 

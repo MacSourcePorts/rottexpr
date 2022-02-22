@@ -2,7 +2,7 @@
 export APP_VERSION="1.0"
 export ICONSDIR="icons"
 export ICONSFILENAME="rott"
-export PRODUCT_NAME="rott"
+export PRODUCT_NAME="rottexpr"
 export EXECUTABLE_NAME="rott"
 export PKGINFO="APPLROTT"
 export COPYRIGHT_TEXT="Rise of the Triad © 1995 3D Realms. All rights reserved."
@@ -19,7 +19,7 @@ mkdir ${ARM64_BUILD_FOLDER}
 
 cd src
 make clean
-(CFLAGS="-I/opt/homebrew/include/ -arch arm64" make -j$NCPU) || exit 1;
+(CFLAGS="-I/opt/homebrew/include/ -arch arm64" LDFLAGS="-L/opt/homebrew/lib/" make -j$NCPU) || exit 1;
 cd ..
 mkdir -p ${X86_64_BUILD_FOLDER}/"${EXECUTABLE_FOLDER_PATH}"
 mv src/"${EXECUTABLE_NAME}" ${X86_64_BUILD_FOLDER}/"${EXECUTABLE_FOLDER_PATH}"

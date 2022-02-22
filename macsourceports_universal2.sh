@@ -35,4 +35,4 @@ mv src/"${EXECUTABLE_NAME}" ${ARM64_BUILD_FOLDER}/"${EXECUTABLE_FOLDER_PATH}"
 "../MSPScripts/build_app_bundle.sh"
 
 #sign and notarize
-#"../MSPScripts/sign_and_notarize.sh" "$1"
+"../MSPScripts/sign_and_notarize.sh" "$1"

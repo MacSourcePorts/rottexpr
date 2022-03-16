@@ -19,14 +19,14 @@ mkdir ${ARM64_BUILD_FOLDER}
 
 cd src
 make clean
-(CFLAGS="-I/opt/homebrew/include/ -arch arm64" LDFLAGS="-L/opt/homebrew/lib/" make -j$NCPU) || exit 1;
+(CFLAGS="-I/opt/homebrew/include/ -arch arm64 -mmacosx-version-min=10.9" LDFLAGS="-L/opt/homebrew/lib/ -mmacosx-version-min=10.9" make -j$NCPU) || exit 1;
 cd ..
 mkdir -p ${X86_64_BUILD_FOLDER}/"${EXECUTABLE_FOLDER_PATH}"
 mv src/"${EXECUTABLE_NAME}" ${X86_64_BUILD_FOLDER}/"${EXECUTABLE_FOLDER_PATH}"
 
 cd src
 make clean
-(CFLAGS="-I/usr/local/include/ -arch x86_64" LDFLAGS="-L/usr/local/lib/" make -j$NCPU) || exit 1;
+(CFLAGS="-I/usr/local/include/ -arch x86_64 -mmacosx-version-min=10.9" LDFLAGS="-L/usr/local/lib/ -mmacosx-version-min=10.9" make -j$NCPU) || exit 1;
 cd ..
 mkdir -p ${ARM64_BUILD_FOLDER}/"${EXECUTABLE_FOLDER_PATH}"
 mv src/"${EXECUTABLE_NAME}" ${ARM64_BUILD_FOLDER}/"${EXECUTABLE_FOLDER_PATH}"
